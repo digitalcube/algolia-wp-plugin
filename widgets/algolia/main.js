@@ -44,18 +44,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   /* Stats widget */
   if (jQuery("#algolia-stats").length > 0) {
-    search.addWidget(
-      instantsearch.widgets.stats({
-        container: "#algolia-stats",
-      })
-    );
+    const paginationWithPanel = instantsearch.widgets.panel({
+      templates: {
+        header: "Stats",
+      },
+    })(instantsearch.widgets.stats);
+
+    const stats = paginationWithPanel({
+      container: "#algolia-stats",
+    });
+
+    search.addWidget(stats);
   }
 
   /* Pagination widget */
   if (jQuery("#algolia-pagination").length > 0) {
-    const paginationWithPanel = instantsearch.widgets.panel()(
-      instantsearch.widgets.pagination
-    );
+    const paginationWithPanel = instantsearch.widgets.panel({
+      templates: {
+        header: "Pagination",
+      },
+    })(instantsearch.widgets.pagination);
 
     const pagination = paginationWithPanel({
       container: "#algolia-pagination",
