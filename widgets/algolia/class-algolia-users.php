@@ -119,7 +119,7 @@ class AlgoliaUsers extends Widget_Base
 	 */
 	public function get_script_depends()
 	{
-		return array('algolia-wp-plugin', 'algolia-instantsearch');
+		return array('algolia-wp-plugin');
 	}
 
 	/**

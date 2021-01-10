@@ -38,18 +38,33 @@ class Algolia extends Widget_Base
 	{
 		parent::__construct($data, $args);
 
-		// Enqueue the instantsearch.js library.
-		wp_enqueue_script('algolia-instantsearch');
+		// Dequeue WP Search with Algolia plugin default scrips.
+		// wp_dequeue_script('algolia-instantsearch');
+		// wp_dequeue_script('algolia-search');
+		// wp_dequeue_script('algolia-autocomplete');
+		// wp_dequeue_script('algolia-autocomplete-noconflict');
 
 		// Dequeue WP Search with Algolia plugin default styles.
 		wp_dequeue_style('algolia-instantsearch');
 
 		// Enqueue Algolia config.
-		wp_register_script('algolia-wp-plugin', plugins_url('/widgets/algolia/main.js', ALGOLIA), array('algolia-instantsearch'), '0.0.0');
+		wp_register_script('algolia-wp-plugin', plugins_url('/widgets/algolia/main.js', ALGOLIA), array('jquery', 'underscore', 'wp-util'), '0.0.0', true);
 		wp_enqueue_script('algolia-wp-plugin');
 
+		// Enqueue Algolia Search Lite from CDN
+		wp_register_script('algolia-cdn-search-lite', 'https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js', array(), '0.0.0', true);
+		wp_enqueue_script('algolia-cdn-search-lite');
+
+		// Enqueue Algolia InstantSearch from CDN
+		wp_register_script('algolia-cdn-instantsearch', 'https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js', array(), '0.0.0', true);
+		wp_enqueue_script('algolia-cdn-instantsearch');
+
+		// Enqueue Algolia Autocomplete from CDN
+		// wp_register_script('algolia-cdn-autocomplete', 'https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js', array(), '0.0.0', true);
+		// wp_enqueue_script('algolia-cdn-autocomplete');
+
 		// Enqueue Algolia Reset from CDN
-		wp_register_style('algolia-cdn-instantsearch-reset', 'https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css', array(), '0.0.0');
+		wp_register_style('algolia-cdn-instantsearch-reset', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/reset-min.css', array(), '0.0.0');
 		wp_enqueue_style('algolia-cdn-instantsearch-reset');
 
 		// Enqueue Algolia Theme from CDN
@@ -137,7 +152,7 @@ class Algolia extends Widget_Base
 	 */
 	public function get_script_depends()
 	{
-		return array('algolia-wp-plugin', 'algolia-instantsearch');
+		return array('algolia-wp-plugin');
 	}
 
 	/**

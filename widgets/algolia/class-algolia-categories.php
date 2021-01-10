@@ -119,7 +119,7 @@ class AlgoliaCategories extends Widget_Base
 	 */
 	public function get_script_depends()
 	{
-		return array('algolia-wp-plugin', 'algolia-instantsearch');
+		return array('algolia-wp-plugin');
 	}
 
 	/**
@@ -154,7 +154,7 @@ class AlgoliaCategories extends Widget_Base
 			[
 				'label' => '',
 				'type' => Controls_Manager::CODE,
-				'default' => '<div id="facet-tags"></div>',
+				'default' => '<div id="facet-categories"></div>',
 				'placeholder' => __('Enter your code', 'algolia-wp-plugin'),
 				'show_label' => false,
 			]
