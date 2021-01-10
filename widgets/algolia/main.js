@@ -1,4 +1,5 @@
-jQuery(function () {
+// Algolia Config
+document.addEventListener("DOMContentLoaded", function (event) {
   if (jQuery("#algolia-search-box").length > 0) {
     if (
       algolia.indices.searchable_posts === undefined &&

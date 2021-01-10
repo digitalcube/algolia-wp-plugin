@@ -26,7 +26,7 @@ defined('ABSPATH') || die();
  *
  * @since 0.0.0
  */
-class Algolia extends Widget_Base
+class AlgoliaPagination extends Widget_Base
 {
 	/**
 	 * Class constructor.
@@ -37,24 +37,6 @@ class Algolia extends Widget_Base
 	public function __construct($data = array(), $args = null)
 	{
 		parent::__construct($data, $args);
-
-		// Enqueue the instantsearch.js library.
-		wp_enqueue_script('algolia-instantsearch');
-
-		// Dequeue WP Search with Algolia plugin default styles.
-		wp_dequeue_style('algolia-instantsearch');
-
-		// Enqueue Algolia config.
-		wp_register_script('algolia-wp-plugin', plugins_url('/widgets/algolia/main.js', ALGOLIA), array('algolia-instantsearch'), '0.0.0');
-		wp_enqueue_script('algolia-wp-plugin');
-
-		// Enqueue Algolia Reset from CDN
-		wp_register_style('algolia-cdn-instantsearch-reset', 'https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css', array(), '0.0.0');
-		wp_enqueue_style('algolia-cdn-instantsearch-reset');
-
-		// Enqueue Algolia Theme from CDN
-		wp_register_style('algolia-cdn-instantsearch-theme', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/algolia-min.css', array(), '0.0.0');
-		wp_enqueue_style('algolia-cdn-instantsearch-theme');
 	}
 
 	/**
@@ -68,7 +50,7 @@ class Algolia extends Widget_Base
 	 */
 	public function get_name()
 	{
-		return 'algolia-wp-plugin';
+		return 'algolia-pagination';
 	}
 
 	/**
@@ -82,7 +64,7 @@ class Algolia extends Widget_Base
 	 */
 	public function get_keywords()
 	{
-		return ['algolia', 'search', 'algolia'];
+		return ['algolia', 'pagination'];
 	}
 
 	/**
@@ -96,7 +78,7 @@ class Algolia extends Widget_Base
 	 */
 	public function get_title()
 	{
-		return __('Algolia', 'algolia-wp-plugin');
+		return __('Algolia Pagination', 'algolia-pagination');
 	}
 
 	/**
@@ -163,8 +145,7 @@ class Algolia extends Widget_Base
 		$this->start_controls_section(
 			'section_title',
 			[
-				'label' => __('Algolia InstantSearch.js', 'algolia-wp-plugin'),
-
+				'label' => __('Algolia Pagination', 'algolia-wp-plugin'),
 			]
 		);
 
@@ -173,50 +154,7 @@ class Algolia extends Widget_Base
 			[
 				'label' => '',
 				'type' => Controls_Manager::CODE,
-				'default' => '
-<script type="text/html" id="tmpl-instantsearch-hit">
-	<article itemtype="http://schema.org/Article">
-		<# if ( data.images.thumbnail ) { #>
-		<div class="ais-hits--thumbnail">
-			<a
-				href="{{ data.permalink }}"
-				title="{{ data.post_title }}"
-				class="ais-hits--thumbnail-link"
-			>
-				<img
-					src="{{ data.images.thumbnail.url }}"
-					alt="{{ data.post_title }}"
-					title="{{ data.post_title }}"
-					itemprop="image"
-				/>
-			</a>
-		</div>
-		<# } #>
-
-		<div class="ais-hits--content">
-			<h2 itemprop="name headline">
-				<a
-					href="{{ data.permalink }}"
-					title="{{ data.post_title }}"
-					class="ais-hits--title-link"
-					itemprop="url"
-					>{{{ data._highlightResult.post_title.value }}}</a
-				>
-			</h2>
-			<div class="excerpt">
-				<p>
-					<# if ( data._snippetResult["content"] ) { #>
-					<span class="suggestion-post-content ais-hits--content-snippet"
-						>{{{ data._snippetResult["content"].value }}}</span
-					>
-					<# } #>
-				</p>
-			</div>
-		</div>
-		<div class="ais-clearfix"></div>
-	</article>
-</script>
-				',
+				'default' => '<div id="algolia-pagination"></div>',
 				'placeholder' => __('Enter your code', 'algolia-wp-plugin'),
 				'show_label' => false,
 			]

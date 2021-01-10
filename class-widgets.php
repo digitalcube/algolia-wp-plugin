@@ -69,6 +69,15 @@ class Widgets
 	private function include_widgets_files()
 	{
 		require_once 'widgets/algolia/class-algolia.php';
+		require_once 'widgets/algolia/class-algolia-search-box.php';
+		require_once 'widgets/algolia/class-algolia-stats.php';
+		require_once 'widgets/algolia/class-algolia-post-types.php';
+		require_once 'widgets/algolia/class-algolia-categories.php';
+		require_once 'widgets/algolia/class-algolia-tags.php';
+		require_once 'widgets/algolia/class-algolia-tags.php';
+		require_once 'widgets/algolia/class-algolia-users.php';
+		require_once 'widgets/algolia/class-algolia-hits.php';
+		require_once 'widgets/algolia/class-algolia-pagination.php';
 	}
 
 	/**
@@ -86,6 +95,15 @@ class Widgets
 
 		// Register the plugin widget classes.
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\Algolia());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaSearchBox());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaStats());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaPostTypes());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaCategories());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaCategories());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaTags());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaUsers());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaHits());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaPagination());
 	}
 
 	/**
