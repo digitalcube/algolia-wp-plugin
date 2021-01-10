@@ -24,6 +24,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     },
   });
 
+  const config = instantsearch.widgets.configure({
+    hitsPerPage: wp.posts_per_page,
+  });
+
+  search.addWidget(config);
+
   /* Search box widget */
   if (jQuery("#algolia-search-box").length > 0) {
     const searchBoxWithPanel = instantsearch.widgets.panel({
