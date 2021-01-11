@@ -53,9 +53,13 @@ class Algolia extends Widget_Base
 		// Dequeue WP Search with Algolia plugin default styles.
 		wp_dequeue_style('algolia-instantsearch');
 
-		// Enqueue Algolia config.
+		// Enqueue Algolia for Elementor config.
 		wp_register_script('algolia-wp-plugin', plugins_url('/widgets/algolia/main.js', ALGOLIA), array(), '0.0.0', true);
 		wp_enqueue_script('algolia-wp-plugin');
+
+		// Enqueue Algolia for Elementor styles.
+		// wp_register_style('algolia-wp-plugin', plugins_url('/widgets/algolia/style.css', ALGOLIA), array(), '0.0.0', true);
+		// wp_enqueue_style('algolia-wp-plugin');
 
 		// Enqueue Algolia Search Lite from CDN
 		wp_register_script('algolia-cdn-search-lite', 'https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js', array(), '0.0.0', true);
