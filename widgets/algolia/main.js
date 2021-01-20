@@ -1,5 +1,7 @@
 // Algolia Config
 document.addEventListener("DOMContentLoaded", function (event) {
+  const indexName = algolia.indices.searchable_posts.name;
+
   /* Instantiate instantsearch.js */
   const searchClient = algoliasearch(
     algolia.application_id,
@@ -9,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const search = instantsearch({
     appId: algolia.application_id,
     apiKey: algolia.search_api_key,
-    indexName: algolia.indices.searchable_posts.name,
+    indexName: indexName,
     searchClient,
     urlSync: {
       mapping: {
@@ -21,6 +23,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
       facetingAfterDistinct: true,
       highlightPreTag: "__ais-highlight__",
       highlightPostTag: "__/ais-highlight__",
+    },
+    searchFunction(helper) {
+      let results = document.querySelectorAll("#results");
+
+      results.forEach((item) => {
+        item.style.display = "none";
+      });
+
+      if (helper.state.query.length > 0) {
+        results.forEach((item) => {
+          item.style.display = null;
+        });
+      }
+
+      helper.search();
     },
   });
 
@@ -113,6 +130,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         "taxonomies_hierarchical.category.lvl1",
         "taxonomies_hierarchical.category.lvl2",
       ],
+      cssClasses: {
+        link: [
+          "elementor-button-link",
+          "elementor-button",
+          "elementor-size-xs",
+        ],
+      },
     });
 
     search.addWidget(categories);
@@ -168,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       hitsPerPage: 10,
       templates: {
         empty: 'No results were found for "<strong>{{query}}</strong>".',
-        // item: wp.template("instantsearch-hit"),
+        item: wp.template("instantsearch-hit"),
       },
       transformData: {
         item: function (hit) {
