@@ -49,19 +49,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   /* Search box widget */
   if (jQuery("#algolia-search-box").length > 0) {
+    const panel = false;
+    const props = {
+      container: "#algolia-search-box",
+      placeholder: "Search for...",
+      wrapInput: false,
+      poweredBy: algolia.powered_by_enabled,
+    };
     const searchBoxWithPanel = instantsearch.widgets.panel({
       templates: {
         header: "Search",
       },
     })(instantsearch.widgets.searchBox);
 
-    const searchBox = searchBoxWithPanel({
-      container: "#algolia-search-box",
-      placeholder: "Search for...",
-      wrapInput: false,
-      poweredBy: algolia.powered_by_enabled,
-    });
-
+    const searchBoxWithOutPanel = instantsearch.widgets.searchBox;
+    const searchBox = panel
+      ? searchBoxWithPanel(props)
+      : searchBoxWithOutPanel(props);
     search.addWidget(searchBox);
   }
 
@@ -181,13 +185,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   /* Hits widget */
   if (jQuery("#algolia-hits").length > 0) {
-    const hitsWithPanel = instantsearch.widgets.panel({
-      templates: {
-        header: "Hits",
-      },
-    })(instantsearch.widgets.hits);
-
-    const hits = hitsWithPanel({
+    const panel = false;
+    const props = {
       container: "#algolia-hits",
       hitsPerPage: 10,
       templates: {
@@ -218,7 +217,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
           return hit;
         },
       },
-    });
+    };
+    const hitsWithPanel = instantsearch.widgets.panel({
+      templates: {
+        header: "Hits",
+      },
+    })(instantsearch.widgets.hits);
+
+    const hitsWithOutPanel = instantsearch.widgets.hits;
+    const hits = panel ? hitsWithPanel(props) : hitsWithOutPanel(props);
 
     search.addWidget(hits);
   }
