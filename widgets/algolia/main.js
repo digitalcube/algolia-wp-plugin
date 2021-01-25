@@ -24,25 +24,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
       highlightPreTag: "__ais-highlight__",
       highlightPostTag: "__/ais-highlight__",
     },
-    searchFunction(helper) {
+    searchFunction(index) {
       let results = document.querySelectorAll("#results");
 
       results.forEach((item) => {
         item.style.display = "none";
       });
 
-      if (helper.state.query.length > 0) {
+      if (index.state.query.length > 0) {
         results.forEach((item) => {
           item.style.display = null;
         });
       }
 
-      helper.search();
+      index.search();
     },
   });
 
   const config = instantsearch.widgets.configure({
     hitsPerPage: wp.posts_per_page,
+    facetFilters: settings.facetFilters,
   });
 
   search.addWidget(config);

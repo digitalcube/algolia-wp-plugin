@@ -44,12 +44,6 @@ class Algolia extends Widget_Base
 		wp_dequeue_script('algolia-autocomplete');
 		wp_dequeue_script('algolia-autocomplete-noconflict');
 
-		$wp = array(
-			'posts_per_page' => get_option('posts_per_page')
-		);
-
-		wp_localize_script('algolia-wp-plugin', 'wp', $wp);
-
 		// Dequeue WP Search with Algolia plugin default styles.
 		wp_dequeue_style('algolia-instantsearch');
 
@@ -185,11 +179,30 @@ class Algolia extends Widget_Base
 	 */
 	protected function _register_controls()
 	{
-		$this->start_controls_section(
-			'section_title',
-			[
-				'label' => __('Algolia InstantSearch.js', 'algolia-wp-plugin'),
 
+		$this->start_controls_section(
+			'section_settings',
+			[
+				'label' => __('Settings', 'algolia-wp-plugin'),
+			]
+		);
+
+		$this->add_control(
+			'facet_filters',
+			[
+				'label' => __('Facet Filters', 'algolai-wp-plugin'),
+				'type' => Controls_Manager::CODE,
+				'show_label' => true,
+			]
+		);
+
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_html',
+			[
+				'label' => __('Hits Template', 'algolia-wp-plugin'),
 			]
 		);
 
@@ -266,6 +279,12 @@ class Algolia extends Widget_Base
 			echo '<pre>{"algolia_api_is_reachable": "' . $algolia_api . '"}</pre>';
 			return;
 		};
+
+		$config = array(
+			'facetFilters' => $this->get_settings_for_display('facet_filters')
+		);
+
+		wp_localize_script('algolia-wp-plugin', 'settings', $config);
 
 		echo $this->get_settings_for_display('html');
 ?>

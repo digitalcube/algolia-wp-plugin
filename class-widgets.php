@@ -76,7 +76,7 @@ class Widgets
 		require_once 'widgets/algolia/class-algolia-tags.php';
 		require_once 'widgets/algolia/class-algolia-tags.php';
 		require_once 'widgets/algolia/class-algolia-users.php';
-		require_once 'widgets/algolia/class-algolia-hits.php';
+		require_once 'widgets/algolia/hits/class-algolia-hits.php';
 		require_once 'widgets/algolia/class-algolia-pagination.php';
 	}
 
