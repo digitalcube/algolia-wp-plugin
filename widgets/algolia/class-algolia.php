@@ -196,6 +196,16 @@ class Algolia extends Widget_Base
 			]
 		);
 
+		$this->add_control(
+			'hits_per_page',
+			[
+				'label' => __('Hits Per Page', 'algolai-wp-plugin'),
+				'show_label' => true,
+				'type' => Controls_Manager::NUMBER,
+				'default' => 5,
+			]
+		);
+
 
 		$this->end_controls_section();
 
@@ -281,7 +291,8 @@ class Algolia extends Widget_Base
 		};
 
 		$config = array(
-			'facetFilters' => $this->get_settings_for_display('facet_filters')
+			'facetFilters' => $this->get_settings_for_display('facet_filters'),
+			'hitsPerPage' => $this->get_settings_for_display('hits_per_page'),
 		);
 
 		wp_localize_script('algolia-wp-plugin', 'settings', $config);

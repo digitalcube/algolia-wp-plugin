@@ -40,10 +40,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
       index.search();
     },
   });
-
+  
   const config = instantsearch.widgets.configure({
-    hitsPerPage: wp.posts_per_page,
-    facetFilters: settings.facetFilters,
+    hitsPerPage: JSON.parse(settings.hitsPerPage),
+    facetFilters: JSON.parse(settings.facetFilters),
   });
 
   search.addWidget(config);
