@@ -192,9 +192,11 @@ class AlgoliaHits extends Widget_Base
 			echo '<pre>{"algolia_api_is_reachable": "' . $algolia_api . '"}</pre>';
 			return;
 		};
+		?>
 
-		echo $this->get_settings_for_display('html');
-?>
+		<div <?php echo $this->get_render_attribute_string('_attributes'); ?>>
+		<?php echo $this->get_settings_for_display('html'); ?>
+		</div>
 
 	<?php }
 
@@ -210,7 +212,7 @@ class AlgoliaHits extends Widget_Base
 	protected function content_template()
 	{
 	?>
-		{{{ settings.html }}}
+			{{{ settings.html }}}
 <?php
 	}
 }

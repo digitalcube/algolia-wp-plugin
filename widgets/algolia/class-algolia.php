@@ -70,10 +70,10 @@ class Algolia extends Widget_Base
 		// Enqueue Algolia Reset from CDN
 		wp_register_style('algolia-cdn-instantsearch-reset', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/reset-min.css', array(), '0.0.0');
 		wp_enqueue_style('algolia-cdn-instantsearch-reset');
-
+		
 		// Enqueue Algolia Theme from CDN
-		wp_register_style('algolia-cdn-instantsearch-theme', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/algolia-min.css', array(), '0.0.0');
-		wp_enqueue_style('algolia-cdn-instantsearch-theme');
+		// wp_register_style('algolia-cdn-instantsearch-theme', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/algolia-min.css', array(), '0.0.0');
+		// wp_enqueue_style('algolia-cdn-instantsearch-theme');
 	}
 
 	/**
@@ -188,9 +188,18 @@ class Algolia extends Widget_Base
 		);
 
 		$this->add_control(
+			'index_name',
+			[
+				'label' => __('Search Index', 'algolia-wp-plugin'),
+				'type' => Controls_Manager::TEXT,
+				'show_label' => true,
+			]
+		);
+
+		$this->add_control(
 			'facet_filters',
 			[
-				'label' => __('Facet Filters', 'algolai-wp-plugin'),
+				'label' => __('Facet Filters', 'algolia-wp-plugin'),
 				'type' => Controls_Manager::CODE,
 				'show_label' => true,
 			]
@@ -199,13 +208,22 @@ class Algolia extends Widget_Base
 		$this->add_control(
 			'hits_per_page',
 			[
-				'label' => __('Hits Per Page', 'algolai-wp-plugin'),
+				'label' => __('Hits Per Page', 'algolia-wp-plugin'),
 				'show_label' => true,
 				'type' => Controls_Manager::NUMBER,
 				'default' => 5,
 			]
 		);
 
+		$this->add_control(
+			'localize',
+			[
+				'label' => __( 'Localize', 'algolia-wp-plugin' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => true,
+				'frontend_available' => true,
+			]
+		);
 
 		$this->end_controls_section();
 
@@ -244,9 +262,9 @@ class Algolia extends Widget_Base
 		<div class="ais-hits--content">
 			<h2 itemprop="name headline">
 				<a
+					class="ais-hits--title-link"
 					href="{{ data.permalink }}"
 					title="{{ data.post_title }}"
-					class="ais-hits--title-link"
 					itemprop="url"
 					>{{{ data._highlightResult.post_title.value }}}</a
 				>
@@ -292,7 +310,10 @@ class Algolia extends Widget_Base
 
 		$config = array(
 			'facetFilters' => $this->get_settings_for_display('facet_filters'),
+			'indexName' => $this->get_settings_for_display('index_name'),
 			'hitsPerPage' => $this->get_settings_for_display('hits_per_page'),
+			'localize' => $this->get_settings_for_display('localize'),
+			'localeName' => pll_current_language('name'),
 		);
 
 		wp_localize_script('algolia-wp-plugin', 'settings', $config);

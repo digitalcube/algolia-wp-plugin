@@ -1,6 +1,6 @@
 // Algolia Config
 document.addEventListener("DOMContentLoaded", function (event) {
-  const indexName = algolia.indices.searchable_posts.name;
+  const indexName = settings.indexName;
 
   /* Instantiate instantsearch.js */
   const searchClient = algoliasearch(
@@ -40,10 +40,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
       index.search();
     },
   });
-  
+
+  const localeName = JSON.parse(
+    `["taxonomies.language:${settings.localeName}"]`
+  );
+  const facets = JSON.parse(settings.facetFilters);
+  const hitsPerPage = settings.hitsPerPage;
+  const facetFilters = facets;
+
   const config = instantsearch.widgets.configure({
-    hitsPerPage: JSON.parse(settings.hitsPerPage),
-    facetFilters: JSON.parse(settings.facetFilters),
+    hitsPerPage: settings.hitsPerPage,
+    facetFilters: [...facetFilters, localeName],
   });
 
   search.addWidget(config);
