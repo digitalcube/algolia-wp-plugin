@@ -86,11 +86,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     search.addWidget(searchBox);
   }
 
+  const statsSettings = stats_settings.stats;
+
   /* Stats widget */
   if (jQuery("#algolia-stats").length > 0) {
     const statsWithPanel = instantsearch.widgets.panel({
       templates: {
-        header: "Stats",
+        header: `${statsSettings.panelHeader ? statsSettings.panelHeader : ``}`,
       },
     })(instantsearch.widgets.stats);
 

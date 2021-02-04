@@ -150,6 +150,30 @@ class AlgoliaStats extends Widget_Base
 		);
 
 		$this->add_control(
+			'panel',
+			[
+				'label' => __('Panel', 'algolia-wp-plugin'),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'panel_header',
+			[
+				'label' => __('Panel Header', 'algolia-wp-plugin'),
+				'type' => Controls_Manager::TEXT,
+				'show_label' => true,
+				'dynamic' => [
+					'active' => true,
+				],
+				'condition' => [
+					'panel' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
 			'html',
 			[
 				'label' => '',
@@ -179,6 +203,10 @@ class AlgoliaStats extends Widget_Base
 			echo '<pre>{"algolia_api_is_reachable": "' . $algolia_api . '"}</pre>';
 			return;
 		};
+
+		$config = array('stats' => array('panelHeader' => $this->get_settings_for_display('panel_header')));
+
+		wp_localize_script('algolia-wp-plugin', 'stats_settings', $config);
 
 		echo $this->get_settings_for_display('html');
 ?>

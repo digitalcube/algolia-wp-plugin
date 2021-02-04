@@ -70,7 +70,7 @@ class Algolia extends Widget_Base
 		// Enqueue Algolia Reset from CDN
 		wp_register_style('algolia-cdn-instantsearch-reset', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/reset-min.css', array(), '0.0.0');
 		wp_enqueue_style('algolia-cdn-instantsearch-reset');
-		
+
 		// Enqueue Algolia Theme from CDN
 		// wp_register_style('algolia-cdn-instantsearch-theme', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/algolia-min.css', array(), '0.0.0');
 		// wp_enqueue_style('algolia-cdn-instantsearch-theme');
@@ -218,7 +218,7 @@ class Algolia extends Widget_Base
 		$this->add_control(
 			'localize',
 			[
-				'label' => __( 'Localize', 'algolia-wp-plugin' ),
+				'label' => __('Localize', 'algolia-wp-plugin'),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => true,
 				'frontend_available' => true,
