@@ -25,13 +25,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
       highlightPostTag: "__/ais-highlight__",
     },
     searchFunction(index) {
+      let init = document.querySelectorAll(".init-results");
       let results = document.querySelectorAll("#results");
+
+      init.forEach((item) => {
+        item.style.display = null;
+      });
 
       results.forEach((item) => {
         item.style.display = "none";
       });
 
       if (index.state.query.length > 0) {
+        init.forEach((item) => {
+          item.style.display = "none";
+        });
+
         results.forEach((item) => {
           item.style.display = null;
         });
@@ -79,13 +88,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   /* Stats widget */
   if (jQuery("#algolia-stats").length > 0) {
-    const paginationWithPanel = instantsearch.widgets.panel({
+    const statsWithPanel = instantsearch.widgets.panel({
       templates: {
         header: "Stats",
       },
     })(instantsearch.widgets.stats);
 
-    const stats = paginationWithPanel({
+    const stats = statsWithPanel({
       container: "#algolia-stats",
     });
 
