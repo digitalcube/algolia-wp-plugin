@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         item.style.display = "none";
       });
 
-      if (index.state.query.length > 0) {
+      if (index.state.query?.length > 0) {
         init.forEach((item) => {
           item.style.display = "none";
         });
@@ -50,10 +50,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     },
   });
 
-  const localeName = JSON.parse(
-    `["taxonomies.language:${settings.localeName}"]`
-  );
-  const facets = JSON.parse(settings.facetFilters);
+  const localeName = settings.localeName
+    ? JSON.parse(`["taxonomies.language:${settings.localeName}"]`)
+    : ``;
+  const facets = settings.facetFilters ? JSON.parse(settings.facetFilters) : ``;
   const hitsPerPage = settings.hitsPerPage;
   const facetFilters = facets;
 
@@ -86,10 +86,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     search.addWidget(searchBox);
   }
 
-  const statsSettings = stats_settings.stats;
-
   /* Stats widget */
   if (jQuery("#algolia-stats").length > 0) {
+    const statsSettings = stats_settings.stats;
     const statsWithPanel = instantsearch.widgets.panel({
       templates: {
         header: `${statsSettings.panelHeader ? statsSettings.panelHeader : ``}`,

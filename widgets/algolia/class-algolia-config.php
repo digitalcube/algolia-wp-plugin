@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Algolia class.
+ * Algolia config class.
  *
  * @category   Class
  * @package    Algolia
@@ -26,7 +26,7 @@ defined('ABSPATH') || die();
  *
  * @since 0.0.0
  */
-class Algolia extends Widget_Base
+class AlgoliaConfig extends Widget_Base
 {
 	/**
 	 * Class constructor.
@@ -115,7 +115,7 @@ class Algolia extends Widget_Base
 	 */
 	public function get_title()
 	{
-		return __('Algolia', 'algolia-wp-plugin');
+		return __('Algolia Config', 'algolia-wp-plugin');
 	}
 
 	/**
@@ -193,6 +193,7 @@ class Algolia extends Widget_Base
 				'label' => __('Search Index', 'algolia-wp-plugin'),
 				'type' => Controls_Manager::TEXT,
 				'show_label' => true,
+				'default' => 'wp_searchable_posts',
 			]
 		);
 
@@ -313,7 +314,7 @@ class Algolia extends Widget_Base
 			'indexName' => $this->get_settings_for_display('index_name'),
 			'hitsPerPage' => $this->get_settings_for_display('hits_per_page'),
 			'localize' => $this->get_settings_for_display('localize'),
-			'localeName' => pll_current_language('name'),
+			'localeName' => function_exists('pll_current_language') ? pll_current_language('name') : null,
 		);
 
 		wp_localize_script('algolia-wp-plugin', 'settings', $config);
