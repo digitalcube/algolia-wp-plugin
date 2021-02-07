@@ -174,6 +174,69 @@ class AlgoliaHits extends Widget_Base
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_html',
+			[
+				'label' => __('Hits Template', 'algolia-wp-plugin'),
+			]
+		);
+
+		$this->add_control(
+			'hits_template',
+			[
+				'label' => '',
+				'type' => Controls_Manager::CODE,
+				'default' => '
+<script type="text/html" id="tmpl-instantsearch-hit">
+	<article itemtype="http://schema.org/Article">
+		<# if ( data.images.thumbnail ) { #>
+		<div class="ais-hits--thumbnail">
+			<a
+				href="{{ data.permalink }}"
+				title="{{ data.post_title }}"
+				class="ais-hits--thumbnail-link"
+			>
+				<img
+					src="{{ data.images.thumbnail.url }}"
+					alt="{{ data.post_title }}"
+					title="{{ data.post_title }}"
+					itemprop="image"
+				/>
+			</a>
+		</div>
+		<# } #>
+
+		<div class="ais-hits--content">
+			<h2 itemprop="name headline">
+				<a
+					class="ais-hits--title-link"
+					href="{{ data.permalink }}"
+					title="{{ data.post_title }}"
+					itemprop="url"
+					>{{{ data._highlightResult.post_title.value }}}</a
+				>
+			</h2>
+			<div class="excerpt">
+				<p>
+					<# if ( data._snippetResult["content"] ) { #>
+					<span class="suggestion-post-content ais-hits--content-snippet"
+						>{{{ data._snippetResult["content"].value }}}</span
+					>
+					<# } #>
+				</p>
+			</div>
+		</div>
+		<div class="ais-clearfix"></div>
+	</article>
+</script>
+				',
+				'placeholder' => __('Enter your code', 'algolia-wp-plugin'),
+				'show_label' => false,
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -192,11 +255,13 @@ class AlgoliaHits extends Widget_Base
 			echo '<pre>{"algolia_api_is_reachable": "' . $algolia_api . '"}</pre>';
 			return;
 		};
-		?>
+?>
 
 		<div <?php echo $this->get_render_attribute_string('_attributes'); ?>>
-		<?php echo $this->get_settings_for_display('html'); ?>
+			<?php echo $this->get_settings_for_display('html'); ?>
 		</div>
+
+		<?php echo $this->get_settings_for_display('hits_template'); ?>
 
 	<?php }
 
@@ -212,7 +277,7 @@ class AlgoliaHits extends Widget_Base
 	protected function content_template()
 	{
 	?>
-			{{{ settings.html }}}
+		{{{ settings.html }}}
 <?php
 	}
 }

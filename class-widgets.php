@@ -78,6 +78,7 @@ class Widgets
 		require_once 'widgets/algolia/class-algolia-users.php';
 		require_once 'widgets/algolia/hits/class-algolia-hits.php';
 		require_once 'widgets/algolia/class-algolia-pagination.php';
+		require_once 'widgets/algolia/class-algolia-get-object.php';
 	}
 
 	/**
@@ -104,6 +105,7 @@ class Widgets
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaUsers());
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaHits());
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaPagination());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaGetObject());
 	}
 
 	/**
