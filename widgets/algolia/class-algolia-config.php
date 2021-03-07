@@ -72,8 +72,8 @@ class AlgoliaConfig extends Widget_Base
 		wp_enqueue_style('algolia-cdn-instantsearch-reset');
 
 		// Enqueue Algolia Theme from CDN
-		// wp_register_style('algolia-cdn-instantsearch-theme', 'https://cdn.jsdelivr.net/npm/instantsearch.css@latest/themes/algolia-min.css', array(), '0.0.0');
-		// wp_enqueue_style('algolia-cdn-instantsearch-theme');
+		wp_register_style('algolia-cdn-instantsearch-theme', 'https://cdn.jsdelivr.net/npm/instantsearch.css@7.4.5/themes/satellite-min.css', array(), '0.0.0');
+		wp_enqueue_style('algolia-cdn-instantsearch-theme');
 	}
 
 	/**
