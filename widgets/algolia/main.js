@@ -255,6 +255,22 @@ if (jQuery("#algolia-search-box, #algolia-object").length > 0) {
       search.addWidget(hits);
     }
 
+    /* Algolia breadcrumbs widget */
+    if (jQuery("#algolia-breadcrumbs").length > 0) {
+
+      const breadcrumbs = instantsearch.widgets.breadcrumb({
+        container: '#algolia-breadcrumbs',
+        attributes: [
+          'hierarchicalCategories.lvl0',
+          'hierarchicalCategories.lvl1',
+          'hierarchicalCategories.lvl2',
+        ],
+      });
+      
+
+      search.addWidget(breadcrumbs);
+    }
+
     search.start();
 
     // Algolia Find Object with Magic Auth

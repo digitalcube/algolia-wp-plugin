@@ -73,6 +73,7 @@ class Widgets
 		require_once 'widgets/algolia/class-algolia-stats.php';
 		require_once 'widgets/algolia/class-algolia-post-types.php';
 		require_once 'widgets/algolia/class-algolia-categories.php';
+		require_once 'widgets/algolia/class-algolia-breadcrumbs.php';
 		require_once 'widgets/algolia/class-algolia-tags.php';
 		require_once 'widgets/algolia/class-algolia-tags.php';
 		require_once 'widgets/algolia/class-algolia-users.php';
@@ -106,6 +107,7 @@ class Widgets
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaHits());
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaPagination());
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaGetObject());
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\AlgoliaBreadcrumbs());
 	}
 
 	/**
