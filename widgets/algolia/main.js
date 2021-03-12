@@ -212,6 +212,7 @@ if (jQuery("#algolia-search-box, #algolia-object").length > 0) {
       const props = {
         container: "#algolia-hits",
         hitsPerPage: 10,
+        escapeHTML: false,
         templates: {
           empty: 'No results were found for "<strong>{{query}}</strong>".',
           item: wp.template("instantsearch-hit"),
@@ -243,6 +244,7 @@ if (jQuery("#algolia-search-box, #algolia-object").length > 0) {
           },
         },
       };
+
       const hitsWithPanel = instantsearch.widgets.panel({
         templates: {
           header: "Hits",
@@ -250,23 +252,21 @@ if (jQuery("#algolia-search-box, #algolia-object").length > 0) {
       })(instantsearch.widgets.hits);
 
       const hitsWithOutPanel = instantsearch.widgets.hits;
-      const hits = panel ? hitsWithPanel(props) : hitsWithOutPanel(props);
 
+      const hits = panel ? hitsWithPanel(props) : hitsWithOutPanel(props);
       search.addWidget(hits);
     }
 
     /* Algolia breadcrumbs widget */
     if (jQuery("#algolia-breadcrumbs").length > 0) {
-
       const breadcrumbs = instantsearch.widgets.breadcrumb({
-        container: '#algolia-breadcrumbs',
+        container: "#algolia-breadcrumbs",
         attributes: [
-          'hierarchicalCategories.lvl0',
-          'hierarchicalCategories.lvl1',
-          'hierarchicalCategories.lvl2',
+          "hierarchicalCategories.lvl0",
+          "hierarchicalCategories.lvl1",
+          "hierarchicalCategories.lvl2",
         ],
       });
-      
 
       search.addWidget(breadcrumbs);
     }
@@ -282,7 +282,6 @@ if (jQuery("#algolia-search-box, #algolia-object").length > 0) {
         let algoliaObject = document.querySelectorAll("#algolia-object");
         if (typeof magic !== "undefined") {
           authorized = await magic.user.isLoggedIn();
-          console.log(authorized);
           algoliaObject.forEach((item) => {
             if (authorized === true) {
               index.getObject(`${postId}-0`).then((object) => {
