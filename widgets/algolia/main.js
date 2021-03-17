@@ -268,6 +268,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (authorized) {
       search.start();
     }
+  } else {
+    search.start();
   }
 
   // Algolia Find Object with Magic Auth
